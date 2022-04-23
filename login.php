@@ -1,39 +1,32 @@
-
-
-
-<body>
-
-    <div>
-        <form action="login.php" method="post">
-         <input type="number" name="student" placeholder="ID">
-         <br>
-         <input type="password" name="studentpass" placeholder="password">
-         <br>
-          <input type="submit"value="Submit">
-
-        </form>
-    </div>
-</body>
-
 <?php
-      
 
-  // include 'cheek.php';
-   //include 'deletestudent.php';
-   
-   
-   $text=$_POST["student"];
-   $text2=$_POST["studentpass"];
-  $file=fopen("student.txt","a+");
-  fwrite($file,$text."\n");
-  $text2=md5($text2);
-  fwrite($file,$text2."\n");
-  fclose($file);
-     //using
-  
-   
- // fill($text,$text);
- //remove_line($file, $text);
+      $file=fopen("login.txt","r");
+      $x=0;
+      while(!feof($file))
+      {
+          $cheek=fgets($file);
+          $arr=explode("~",$cheek);
+               
+           $arr[1]=intval($arr[1]);
+           $_POST["id"]=intval($_POST["id"]);
+          if($arr[0]==$_POST["password"])
+          {
+           
+           if($arr[1]==$_POST["id"])
+           {
+           
+             header('location:Main.php');
+             $x=1;
+           }
+        }
+      }
+      if($x==0)
+      {
+        echo"invalid registered"."<br>";
+      }
+      
+      
+    fclose($file);
 
 
 ?>
